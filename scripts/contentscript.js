@@ -17,19 +17,22 @@ chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
 
 /* script de mostra todas as posicoes de banners */
 function oas_debugger(chk){
-  $(".app-oas").each(function(key, value){
+  $("[data-oas]").each(function(key, value){
     var banner = $(this);
     var img = $("img", banner);
     var oas = banner.data("oas");
     var width = banner.data("oas-width");
+    var height = banner.data("oas-height");
 
     if(!width || width === undefined || width < 0){
       width = banner.width();
     }
 
-    var height = banner.data("oas-height");
+    if(!height || height === undefined || height < 0){
+      height = 60;
+    }
+
     var url = "http://placehold.it/"+ width +"x"+ height+"&text=" + oas + "(" + width + "x" + height + ")";
-    
     banner.html("<img src='"+ url +"'>");
   });
 }
